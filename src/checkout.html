@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="output.css" />
+    <link rel="icon" href="assets/images/logo.png" />
+    <title>Checkout</title>
+  </head>
+  <body>
+    <!-- Navbar -->
+    <div class="w-full">
+      <div
+        class="max-w-[1250px] mx-auto flex justify-between items-center py-2"
+      >
+        <div class="flex items-center">
+          <div class="w-20">
+            <img class="w-full" src="assets/images/logo.png" alt="" />
+          </div>
+          <ul class="flex items-center gap-9 ms-20">
+            <li>
+              <a
+                class="text-[18px] font-medium text-gray-700 hover:underline"
+                href="index.html"
+                >Home</a
+              >
+            </li>
+            <li>
+              <a
+                class="text-[18px] font-medium text-gray-700 hover:underline"
+                href="checkout.html"
+                >Cart</a
+              >
+            </li>
+          </ul>
+        </div>
+        <div class="flex gap-5">
+          <button class="w-8 h-w-8">
+            <img
+              class="w-full h-full"
+              src="assets/icons/user-icons.svg"
+              alt=""
+            />
+          </button>
+        </div>
+      </div>
+    </div>
+    <!-- Navbar -->
+
+    <!-- Cart Item -->
+    <div class="">
+      <div class="max-w-[1250px] mx-auto">
+        <div class="mt-5">
+          <h2 class="text-2xl font-medium text-gray-700">Shopping Cart</h2>
+        </div>
+        <div class="grid grid-cols-3 mt-5 gap-10">
+          <div class="col-span-2 border-2 px-5 pb-5 rounded-lg">
+            <!-- Header -->
+            <div class="grid grid-cols-12 py-4 border-b-2">
+              <span class="col-span-5 text-lg font-medium text-gray-700"
+                >Product Code</span
+              >
+              <span class="col-span-3 text-lg font-medium text-gray-700"
+                >Quantity</span
+              >
+              <span class="col-span-3 text-lg font-medium text-gray-700"
+                >Total</span
+              >
+              <span class="col-span-1 text-lg font-medium text-gray-700"
+                >Action</span
+              >
+            </div>
+            <!-- Header -->
+
+            <!-- Item -->
+            <div class="grid grid-cols-12 py-4 items-center border-b-2">
+              <div class="col-span-5 text-gray-700 flex gap-4">
+                <img
+                  class="w-16 border aspect-square object-cover p-1 rounded-md"
+                  src="https://images-na.ssl-images-amazon.com/images/I/71xvfA4ozZL._SL1500_.jpg"
+                  alt="Product Image"
+                />
+                <div class="">
+                  <h2 class="w-[220px] truncate font-medium">
+                    Wireless Bluetooth Earbud
+                  </h2>
+                  <span class="font-medium text-gray-800"
+                    >Category :
+                    <span class="text-gray-600">Electronics</span></span
+                  >
+                </div>
+              </div>
+              <div class="col-span-3 text-gray-700">
+                <div
+                  class="inline space-x-2 border border-gray-300 rounded-full px-4 py-1 shadow-sm"
+                >
+                  <button
+                    class="text-lg font-medium px-1 text-gray-700 hover:text-red-500"
+                  >
+                    -
+                  </button>
+                  <span class="text-lg font-medium">4</span>
+                  <button
+                    class="text-lg font-medium px-1 text-gray-700 hover:text-green-500"
+                  >
+                    +
+                  </button>
+                </div>
+              </div>
+              <div class="col-span-3 text-gray-700 font-bold">$999.99</div>
+              <div class="col-span-1 text-gray-700">
+                <button class="hover:text-red-500">
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    fill="none"
+                    viewBox="0 0 24 24"
+                    stroke-width="1.5"
+                    stroke="currentColor"
+                    class="w-6 h-6"
+                  >
+                    <path
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                      d="M6 18 18 6M6 6l12 12"
+                    />
+                  </svg>
+                </button>
+              </div>
+            </div>
+            <!-- Item -->
+          </div>
+
+          <div class="col-span-1 border-2 px-4 rounded-lg h-[240px]">
+            <span class="block w-full col-span-5 text-lg font-medium text-gray-700 py-4 border-b-2">
+              Order Summary
+            </span>
+            <div class="">
+              <div class="flex flex-col gap-4 py-3 border-b-2">
+                <div class="flex justify-between items-center">
+                  <span class="text-lg text-gray-600">Quantity : </span>
+                  <span class="text-lg text-gray-800 font-bold">20 Items</span>
+                </div>
+                <div class="flex justify-between items-center">
+                  <span class="text-lg text-gray-600">Total Price : </span>
+                  <span class="text-lg text-gray-800 font-bold">$699.99</span>
+                </div>
+              </div>
+              <button class="w-full my-3 bg-[#212121] py-3 text-lg rounded-md font-bold text-white">Checkout</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- Cart Item -->
+  </body>
+</html>
