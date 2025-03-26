@@ -1,19 +1,63 @@
 import products from "./products.js";
 
 let productsData = products;
+let categories = ["All"];
+
+const cateContainer = document.getElementById("category-container");
+productsData.forEach((cate) => {
+  if (!categories.includes(cate.category)) {
+    categories.push(cate.category);
+  }
+});
+
+const showFilterCategory = () => {
+  let cateLists = "";
+  categories.forEach((cate) => {
+    cateLists += `
+        <li class="flex items-center">
+          <input
+            type="radio"
+            name="category"
+            ${cate == "All" ? "checked" : ""}
+            class="h-5 w-5 text-gray-600"
+            onclick="filterByCategory('${cate}')"
+          />
+          <label class="ml-2 text-gray-700">${cate}</label>
+        </li>
+    `;
+  });
+  cateContainer.innerHTML = cateLists;
+};
+showFilterCategory();
+
+const filterByCategory = (category) => {
+  const filteredProdoct = productsData.filter(
+    (pro) => pro.category === category
+  );
+  renderProduct(filteredProdoct);
+};
+window.filterByCategory = filterByCategory;
+
 const productContainer = document.getElementById("product-card-container");
 const search = document.getElementById("search");
+const showMoreBtn = document.getElementById("show-more-btn");
 
 search.addEventListener("input", () => {
   const searchProducts = productsData.filter((pro) =>
     pro.name.toLowerCase().includes(search.value.toLowerCase())
   );
-  renderProduct(searchProducts)
+  renderProduct(searchProducts);
+});
+let visibleCount = 8;
+
+showMoreBtn.addEventListener("click", () => {
+  visibleCount += 8;
+  renderProduct();
 });
 
 const renderProduct = (filteredProdoct = products) => {
   let cards = "";
-  filteredProdoct.forEach((product) => {
+  filteredProdoct.slice(0, visibleCount).forEach((product) => {
     cards += `
         <div class="col-span-1">
             <div
@@ -95,7 +139,11 @@ const renderProduct = (filteredProdoct = products) => {
         </div>
     `;
   });
-
   productContainer.innerHTML = cards;
+  if (visibleCount >= filteredProdoct.length) {
+    showMoreBtn.classList.add("hidden");
+  } else {
+    showMoreBtn.classList.remove("hidden");
+  }
 };
 renderProduct(productsData);
