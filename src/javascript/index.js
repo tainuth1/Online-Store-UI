@@ -31,10 +31,14 @@ const showFilterCategory = () => {
 showFilterCategory();
 
 const filterByCategory = (category) => {
-  const filteredProdoct = productsData.filter(
-    (pro) => pro.category === category
-  );
-  renderProduct(filteredProdoct);
+  if(category === "All"){
+    renderProduct(productsData);
+  }else{
+    const filteredProdoct = productsData.filter(
+      (pro) => pro.category === category
+    );
+    renderProduct(filteredProdoct);
+  }
 };
 window.filterByCategory = filterByCategory;
 
