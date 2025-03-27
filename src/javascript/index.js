@@ -2,6 +2,48 @@ import products from "./products.js";
 
 let productsData = products;
 let categories = ["All"];
+let prices = [50, 100, 150, 200, 250, 300, 350, 400];
+let defaultCate = "All";
+let defaultPrice = 0;
+
+const priceContainer = document.getElementById("filter-price-container");
+const showPriceFilter = () => {
+  let priceList = "";
+  prices.forEach((price) => {
+    priceList += `
+      <label
+        onclick="filterByPrice(${price})"
+        for="price"
+        class="price-filter flex items-center justify-center p-1 border border-gray-300 rounded-lg cursor-pointer hover:bg-gray-100"
+      >
+        <input type="checkbox" class="hidden" />
+        <span class="text-gray-700">${price}</span>
+      </label>
+    `;
+  });
+  priceContainer.innerHTML = priceList;
+  const filterPrice = document.querySelectorAll(".price-filter");
+  filterPrice.forEach((p) => {
+    p.addEventListener("click", () => {
+      filterPrice.forEach((fp) => {
+        fp.classList.remove("border-blue-600");
+      });
+      p.classList.add("border-blue-600");
+    });
+  });
+};
+showPriceFilter();
+
+const filterByPrice = (price) => {
+  defaultPrice = price;
+  const filteredProdoct = productsData.filter(
+    (pro) =>
+      pro.price >= defaultPrice &&
+      (defaultCate != "All" ? pro.category === defaultCate : true)
+  );
+  renderProduct(filteredProdoct);
+};
+window.filterByPrice = filterByPrice;
 
 const cateContainer = document.getElementById("category-container");
 productsData.forEach((cate) => {
@@ -12,17 +54,19 @@ productsData.forEach((cate) => {
 
 const showFilterCategory = () => {
   let cateLists = "";
-  categories.forEach((cate) => {
+  categories.forEach((cate, index) => {
     cateLists += `
-        <li class="flex items-center">
-          <input
-            type="radio"
-            name="category"
-            ${cate == "All" ? "checked" : ""}
-            class="h-5 w-5 text-gray-600"
-            onclick="filterByCategory('${cate}')"
-          />
-          <label class="ml-2 text-gray-700">${cate}</label>
+        <li onclick="filterByCategory('${cate}')" class="flex items-center">
+          <label for="category-${index}" class="w-full flex items-center">
+            <input
+              type="radio"
+              name="category"
+              id="category-${index}"
+              ${cate == "All" ? "checked" : ""}
+              class="h-5 w-5 text-gray-600"
+            />
+            <label for="category-${index}" class="ml-2 text-gray-700">${cate}</label>
+          </label>
         </li>
     `;
   });
@@ -31,11 +75,14 @@ const showFilterCategory = () => {
 showFilterCategory();
 
 const filterByCategory = (category) => {
-  if(category === "All"){
+  defaultCate = category;
+  if (category === "All") {
     renderProduct(productsData);
-  }else{
+  } else {
     const filteredProdoct = productsData.filter(
-      (pro) => pro.category === category
+      (pro) =>
+        pro.price >= defaultPrice &&
+        (defaultCate != "All" ? pro.category === defaultCate : true)
     );
     renderProduct(filteredProdoct);
   }
@@ -56,7 +103,13 @@ let visibleCount = 8;
 
 showMoreBtn.addEventListener("click", () => {
   visibleCount += 8;
-  renderProduct();
+  const filteredProdoct = productsData.filter(
+    (pro) =>
+      pro.price >= defaultPrice &&
+      (defaultCate != "All" ? pro.category === defaultCate : true)
+  );
+  console.log(filteredProdoct);
+  renderProduct(filteredProdoct);
 });
 
 const renderProduct = (filteredProdoct = products) => {
