@@ -139,6 +139,7 @@ const renderProduct = (filteredProdoct = products) => {
             <div class="grid grid-cols-6 gap-3 mt-2">
               <div class="col-span-4 flex items-center gap-2">
                 <button
+                  id="decrease"
                   class="h-full px-2 bg-gray-200 text-xl flex justify-center items-center text-gray-800 rounded-md hover:bg-gray-300 active:bg-gray-200"
                 >
                   <svg
@@ -157,9 +158,11 @@ const renderProduct = (filteredProdoct = products) => {
                 <input
                   type="text"
                   value="1"
-                  class="w-16 h-full text-center border border-gray-300 rounded-md px-2 py-1 focus:outline-none focus:ring-2 focus:ring-blue-400"
+                  id="quantity-${product.id}"
+                  class="quantity w-16 h-full text-center border border-gray-300 rounded-md px-2 py-1 focus:outline-none focus:ring-2 focus:ring-blue-400"
                 />
                 <button
+                  id="increase"
                   class="h-full px-2 bg-blue-500 text-xl flex justify-center items-center text-white rounded-md hover:bg-blue-600 active:bg-blue-500"
                 >
                   <svg
@@ -177,6 +180,7 @@ const renderProduct = (filteredProdoct = products) => {
                 </button>
               </div>
               <button
+                onclick="addToCart(${product.id})"
                 class="col-span-2 w-full flex justify-center items-center py-2 text-sm bg-blue-600 transition-all rounded-md text-white hover:bg-blue-800"
               >
                 <svg
@@ -202,5 +206,47 @@ const renderProduct = (filteredProdoct = products) => {
   } else {
     showMoreBtn.classList.remove("hidden");
   }
+
+  const decreaseBtn = document.querySelectorAll("#decrease");
+  const increaseBtn = document.querySelectorAll("#increase");
+  const quantity = document.querySelectorAll(".quantity");
+
+  increaseBtn.forEach((btn, index) => {
+    btn.addEventListener("click", () => {
+      quantity[index].value = parseInt(quantity[index].value) + 1;
+    });
+  });
+  decreaseBtn.forEach((btn, index) => {
+    btn.addEventListener("click", () => {
+      quantity[index].value = parseInt(quantity[index].value) - 1;
+      if (quantity[index].value < 1) {
+        quantity[index].value = 1;
+      }
+    });
+  });
 };
 renderProduct(productsData);
+
+let carts = JSON.parse(localStorage.getItem("carts")) || [];
+console.log(carts);
+const addToCart = (id) => {
+  const qtyValue = document.getElementById(`quantity-${id}`);
+  const product = productsData.find((pro) => pro.id === id);
+  const newProductObj = { ...product, quantity: parseInt(qtyValue.value) };
+  const checkIfExist = carts.find((item) => item.id === product.id);
+
+  if (checkIfExist) {
+    const productAfterUpdateQty = carts.map((product) =>
+      product.id === id
+        ? { ...product, quantity: product.quantity + parseInt(qtyValue.value) }
+        : product
+    );
+    carts = productAfterUpdateQty;
+    localStorage.setItem("carts", JSON.stringify(carts));
+  } else {
+    const newCartArr = [...carts, newProductObj];
+    carts = newCartArr;
+    localStorage.setItem("carts", JSON.stringify(carts));
+  }
+};
+window.addToCart = addToCart;
