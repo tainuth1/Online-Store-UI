@@ -279,6 +279,7 @@ const renderCartItem = () => {
           <span class="text-gray-600 font-medium">$${product.price}</span>
           <span>${product.quantity}</span>
           <div
+            onclick="removeCartItem('${product.id}')"
             class="text-white bg-red-600 py-1 px-4 rounded cursor-pointer"
           >
             Remove
@@ -294,3 +295,11 @@ const renderCartItem = () => {
   totalAmount.innerHTML = `$${total.toFixed(2)}`;
 };
 renderCartItem();
+
+const removeCartItem = (id) => {
+  const newCartItems = carts.filter((item) => item.id != id);
+  carts = newCartItems;
+  localStorage.setItem("carts", JSON.stringify(carts));
+  renderCartItem();
+};
+window.removeCartItem = removeCartItem;
