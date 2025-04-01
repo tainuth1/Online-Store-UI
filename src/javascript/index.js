@@ -228,7 +228,8 @@ const renderProduct = (filteredProdoct = products) => {
 renderProduct(productsData);
 
 let carts = JSON.parse(localStorage.getItem("carts")) || [];
-console.log(carts);
+const itemCount = document.getElementById("item-count");
+itemCount.innerHTML = carts.length;
 const addToCart = (id) => {
   const qtyValue = document.getElementById(`quantity-${id}`);
   const product = productsData.find((pro) => pro.id === id);
@@ -248,5 +249,48 @@ const addToCart = (id) => {
     carts = newCartArr;
     localStorage.setItem("carts", JSON.stringify(carts));
   }
+  renderCartItem();
+  itemCount.innerHTML = carts.length;
 };
 window.addToCart = addToCart;
+
+const cartItemContainer = document.getElementById("cart-item-container");
+const totalAmount = document.getElementById("total-amount");
+const renderCartItem = () => {
+  let itemList = "";
+  carts.forEach((product) => {
+    itemList += `
+        <div class="flex items-center justify-between gap-3">
+          <div class="flex items-center gap-5">
+            <img
+              src="${product.image}"
+              class="w-14 h-14 border rounded-lg"
+              alt=""
+            />
+            <div class="">
+              <p class="w-40 text-left font-medium truncate">
+                ${product.name}
+              </p>
+              <p class="w-40 truncate text-sm text-gray-500">
+                ${product.description}
+              </p>
+            </div>
+          </div>
+          <span class="text-gray-600 font-medium">$${product.price}</span>
+          <span>${product.quantity}</span>
+          <div
+            class="text-white bg-red-600 py-1 px-4 rounded cursor-pointer"
+          >
+            Remove
+          </div>
+        </div>
+    `;
+  });
+  cartItemContainer.innerHTML = itemList;
+
+  const total = carts.reduce((prev, curr) => {
+    return curr.price * curr.quantity + prev;
+  }, 0);
+  totalAmount.innerHTML = `$${total.toFixed(2)}`;
+};
+renderCartItem();
