@@ -127,7 +127,7 @@ const renderProduct = (filteredProdoct = products) => {
               />
             </div>
             <a
-              href="product-detail.html"
+              href="product-detail.html?id=${product.id}"
               class="block w-full truncate font-medium text-gray-700 text-lg mt-2"
             >
                 ${product.name}
