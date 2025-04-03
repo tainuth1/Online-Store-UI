@@ -256,6 +256,7 @@ window.addToCart = addToCart;
 
 const cartItemContainer = document.getElementById("cart-item-container");
 const totalAmount = document.getElementById("total-amount");
+
 const renderCartItem = () => {
   let itemList = "";
   carts.forEach((product) => {

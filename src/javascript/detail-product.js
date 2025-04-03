@@ -47,7 +47,14 @@ const productDetail = document.getElementById("product-detail");
 
 let detailHTML = "";
 for (let key in product.details) {
-  detailHTML += `<p><strong>${key}:</strong> ${product.details[key]}</p>`;
+  if (Array.isArray(product.details[key])) {
+    detailHTML += `<p><strong>${key}:</strong></p>`;
+    for (let pro of product.details[key]) {
+      detailHTML += `<li class="ml-16">${pro}</li>`;
+    }
+  } else {
+    detailHTML += `<p><strong>${key}:</strong> ${product.details[key]}</p>`;
+  }
 }
 productDetail.innerHTML += detailHTML;
 
