@@ -5,7 +5,7 @@ const products = [
     category: "Electronics",
     description: "High-quality sound with noise cancellation.",
     price: 59.99,
-    rate: 4.5,
+    rate: 3,
     image:
       "https://images-na.ssl-images-amazon.com/images/I/71xvfA4ozZL._SL1500_.jpg",
     details: {
@@ -21,7 +21,7 @@ const products = [
     category: "Electronics",
     description: "4K Ultra HD Smart TV with HDR.",
     price: 499.99,
-    rate: 4.7,
+    rate: 2.5,
     image:
       "https://www.bhphotovideo.com/images/images2500x2500/samsung_un55h6400afxza_un55h6400_55_smart_led_1026263.jpg",
     details: {
